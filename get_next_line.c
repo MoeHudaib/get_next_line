@@ -77,3 +77,21 @@ char	*get_next_line(int fd)
 	stash = trim_stash(stash);
 	return (line);
 }
+
+int main(void)
+{
+	int fd = open("test.txt", O_RDONLY);
+	char *line;
+
+	if (fd == -1)
+		return (1);
+
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+
+	close(fd);
+	return (0);
+}
