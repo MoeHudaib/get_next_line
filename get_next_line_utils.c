@@ -1,82 +1,77 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/17 17:51:53 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/17 17:51:53 by mohammad         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
-
-int	grow_buffer(int buffer)
-{
-	buffer *= 2;
-	return (buffer);
-}
+#include <stdlib.h>
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	size_t			total;
-	unsigned char	*ptr;
-	size_t			i;
+	char	*ptr;
+	size_t	total = count * size;
+	size_t	i = 0;
 
-	total = count * size;
-	ptr = (unsigned char *)malloc(total);
+	ptr = malloc(total);
 	if (!ptr)
 		return (NULL);
-	i = 0;
 	while (i < total)
-	{
-		ptr[i] = 0;
-		i++;
-	}
-	return ((void *)ptr);
+		ptr[i++] = 0;
+	return (ptr);
 }
 
-void	*ft_realloc(void *ptr, int *old_size, int (*f)(int))
+size_t	ft_strlen(const char *s)
 {
-	void	*new_ptr;
-	int		i;
-	int		new_size;
+	size_t	i = 0;
 
-	new_size = f(*old_size);
-	if (!ptr)
-		return (ft_calloc(new_size, sizeof(char)));
-	new_ptr = ft_calloc(new_size, sizeof(char));
-	if (!new_ptr)
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	if (!s)
 		return (NULL);
-	i = 0;
-	while (i < *old_size && i < new_size)
+	while (*s)
 	{
-		((char *)new_ptr)[i] = ((char *)ptr)[i];
-		i++;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
-	((char *)new_ptr)[i] = '\0';
-	free(ptr);
-	*old_size = new_size;
-	return (new_ptr);
+	if (c == '\0')
+		return ((char *)s);
+	return (NULL);
 }
 
-int	set_it_in(char **str, char c, int *buffer)
+char	*ft_strdup(const char *s)
 {
-	int		i;
-	char	*tmp;
+	size_t	len = ft_strlen(s);
+	char	*dup = ft_calloc(len + 1, sizeof(char));
+	size_t	i = 0;
 
-	i = 0;
-	while ((*str)[i])
-		i++;
-	if (i >= *buffer - 1)
+	if (!dup)
+		return (NULL);
+	while (i < len)
 	{
-		tmp = ft_realloc(*str, buffer, grow_buffer);
-		if (!tmp)
-			return (-1);
-		*str = tmp;
+		dup[i] = s[i];
+		i++;
 	}
-	(*str)[i++] = c;
-	(*str)[i] = '\0';
-	return (0);
+	return (dup);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	size_t	len1 = ft_strlen(s1);
+	size_t	len2 = ft_strlen(s2);
+	char	*joined = ft_calloc(len1 + len2 + 1, sizeof(char));
+	size_t	i = 0, j = 0;
+
+	if (!joined)
+		return (NULL);
+	while (s1 && s1[i])
+		joined[j++] = s1[i++];
+	i = 0;
+	while (s2 && s2[i])
+		joined[j++] = s2[i++];
+	if (s1)
+		free(s1);
+	return (joined);
 }

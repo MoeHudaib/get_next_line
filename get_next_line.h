@@ -6,7 +6,7 @@
 /*   By: mohammad <mohammad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 17:51:55 by mohammad          #+#    #+#             */
-/*   Updated: 2025/08/17 17:51:56 by mohammad         ###   ########.fr       */
+/*   Updated: 2025/08/25 22:58:21 by mohammad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1
 # endif
 
 char	*get_next_line(int fd);
-int		set_it_in(char **str, char c, int *buffer);
-void	*ft_realloc(void *ptr, int *old_size, int (*f)(int));
 void	*ft_calloc(size_t count, size_t size);
-int		grow_buffer(int buffer);
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s1, int c);
+char	*ft_strjoin(char *s1, char *s2);
+char	*get_chunk(int fd, char *line);
+
 
 #endif
