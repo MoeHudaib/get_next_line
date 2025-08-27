@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhdeeb <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/27 22:00:07 by mhdeeb            #+#    #+#             */
+/*   Updated: 2025/08/27 22:00:09 by mhdeeb           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 void	*ft_calloc(size_t count, size_t size)
@@ -11,7 +23,7 @@ void	*ft_calloc(size_t count, size_t size)
 	i = 0;
 	while (i < count * size)
 		ptr[i++] = 0;
-	return (ptr);
+	return ((void *)ptr);
 }
 
 size_t	ft_strlen(const char *s)
